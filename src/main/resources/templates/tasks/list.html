@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* Обеспечиваем высоту экрана на весь экран */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0e2433;
+            color: white;
+            text-align: center;
+        }
+
+        /* Центрируем контейнер */
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0e2433;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #45b6fe;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #0e2433;
+        }
+
+        input[type="submit"] {
+            background-color: #45b6fe;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .message {
+            background-color: #45b6fe;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div>
+  <h2>Your Tasks</h2>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Due Date</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <!-- Перебираем список задач и отображаем их -->
+    <tr th:each="task : ${tasks}">
+      <td th:text="${task.title}"></td>
+      <td th:text="${task.dueDate}"></td>
+      <td th:text="${task.status}"></td>
+      <td>
+        <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Edit</a> |  <!-- Ссылка на редактирование -->
+        <a th:href="@{/tasks/delete/{id}(id=${task.id})}">Delete</a> <!-- Ссылка на удаление -->
+      </td>
+    </tr>
+  </table>
+  <!-- Кнопка для добавления новой задачи -->
+  <a href="/tasks/add">Add Task</a>
+</div>
+
+</body>
+</html>

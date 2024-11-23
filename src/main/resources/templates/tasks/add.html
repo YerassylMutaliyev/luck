@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* Обеспечиваем высоту экрана на весь экран */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0e2433;
+            color: white;
+            text-align: center;
+        }
+
+        /* Центрируем контейнер */
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0e2433;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #45b6fe;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #0e2433;
+        }
+
+        input[type="submit"] {
+            background-color: #45b6fe;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .message {
+            background-color: #45b6fe;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Add New Task</h2>
+<form th:action="@{/tasks/save}" method="post">
+    <input type="text" name="title" placeholder="Title" required />
+    <input type="date" name="dueDate" required />
+    <textarea name="description" placeholder="Description"></textarea>
+    <input type="text" name="category" placeholder="Category" />
+    <input type="text" name="priority" placeholder="Priority" />
+    <input type="submit" value="Save Task" />
+</form>
+
+</body>
+</html>

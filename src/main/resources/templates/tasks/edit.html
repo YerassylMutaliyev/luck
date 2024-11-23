@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* Обеспечиваем высоту экрана на весь экран */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0e2433;
+            color: white;
+            text-align: center;
+        }
+
+        /* Центрируем контейнер */
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0e2433;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #45b6fe;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #0e2433;
+        }
+
+        input[type="submit"] {
+            background-color: #45b6fe;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .message {
+            background-color: #45b6fe;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Edit Task</h2>
+<form th:action="@{/tasks/update/{id}(id=${task.id})}" method="post">
+    <input type="text" th:value="${task.title}" name="title" required />
+    <input type="date" th:value="${task.dueDate}" name="dueDate" required />
+    <textarea name="description" th:text="${task.description}"></textarea>
+    <input type="text" th:value="${task.category}" name="category" />
+    <input type="text" th:value="${task.priority}" name="priority" />
+    <input type="submit" value="Update Task" />
+</form>
+</body>
+</html>
