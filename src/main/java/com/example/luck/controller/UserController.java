@@ -1,22 +1,24 @@
 package com.example.luck.controller;
 
-import com.example.luck.dto.UserDto;
-import com.example.luck.model.Task;
-import com.example.luck.service.UserService;
+import com.example.luck.dto.PageRequestDto;
+import com.example.luck.model.User;
+import com.example.luck.repositories.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.example.luck.dto.UserDto;
+import com.example.luck.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class UserController {
+
 
     @Autowired
     UserDetailsService userDetailsService;

@@ -1,15 +1,15 @@
 package com.example.luck.controller;
 
+import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.example.luck.model.Task;
 import com.example.luck.repositories.UserRepository;
 import com.example.luck.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -95,13 +95,34 @@ public class TaskController {
         return "redirect:/admin/tasks";
     }
 
+    //search
+    @GetMapping("/search")
+    public String searchTasks(@RequestParam(required = false) String title, Model model) {
+        List<Task> tasks = taskService.searchTasksByTitle(title);  // Заменяем на title
+        model.addAttribute("tasks", tasks);
+        return "tasks/list"; // Отображение списка задач
+    }
+    //filtraton
+    @GetMapping("/filter")
+    public String filterTasks(@RequestParam(required = false) String priority, Model model) {
+        List<Task> tasks = taskService.filterTasksByPriority(priority);
+        model.addAttribute("tasks", tasks);
+        return "tasks/list";
+    }
 
-//    @GetMapping("/tasks")
-//    public String viewUserTasks(Model model, Principal principal) {
-//        Long userId = getCurrentUserId(principal);
-//        model.addAttribute("tasks", taskService.getTasksByUserId(userId));
-//        return "tasks/task-list"; // Create this template for user's task list view
-//    }
+    //bounded
+    @GetMapping("/search-filter")
+    public String searchAndFilterTasks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String priority,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model
+    ) {
+        Page<Task> tasks = taskService.searchAndFilterTasks(title, priority, page, size);
+        model.addAttribute("tasks", tasks);
+        return "tasks/list";
+    }
 
 
 }

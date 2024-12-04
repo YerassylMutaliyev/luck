@@ -1,16 +1,12 @@
 package com.example.luck.controller;
 
-import com.example.luck.model.User;
-import com.example.luck.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.example.luck.repositories.UserRepository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.security.Principal;
+import com.example.luck.model.User;
 
 @Controller
 @RequestMapping("/user")

@@ -7,6 +7,7 @@ import com.example.luck.repositories.TaskRepository;
 import com.example.luck.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -63,9 +64,9 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public List<Task> getTasksByUserId(Long userId) {
-        return taskRepository.findByUserId(userId);  // Call the repository method
-    }
+//    public List<Task> getTasksByUserId(Long userId) {
+//        return taskRepository.findByUserId(userId);  // Call the repository method
+//    }
 
     @Autowired
     public TaskService(TaskRepository taskRepository) {
@@ -84,7 +85,30 @@ public class TaskService {
         return taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
+    //pagination
+//    public Page<Task> getTasksWithPagination(int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        return taskRepository.findAll(pageable);
+//    }
+
+    //search
+    public List<Task> searchTasksByTitle(String title) {
+        if (title == null || title.isEmpty()) {
+            return taskRepository.findAll();  // Возвращаем все задачи, если название не указано
+        }
+        return taskRepository.findByTitleContainingIgnoreCase(title);  // Поиск по title
+    }
 
 
+    //filtration
+    public List<Task> filterTasksByPriority(String priority) {
+        return taskRepository.findByPriority(priority);
+    }
+
+    //bounded
+    public Page<Task> searchAndFilterTasks(String title, String priority, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return taskRepository.findByTitleAndPriority(title, priority, pageable);
+    }
 }
 
